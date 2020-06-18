@@ -1,0 +1,230 @@
+USE [master]
+GO
+/****** Object:  Database [mhmdfahmy]    Script Date: 16/06/2020 02:26:42 م ******/
+CREATE DATABASE [mhmdfahmy]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'mhmdfahmy', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\DATA\mhmdfahmy.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'mhmdfahmy_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.MSSQLSERVER\MSSQL\DATA\mhmdfahmy_log.ldf' , SIZE = 2048KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+ALTER DATABASE [mhmdfahmy] SET COMPATIBILITY_LEVEL = 120
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [mhmdfahmy].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [mhmdfahmy] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [mhmdfahmy] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [mhmdfahmy] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [mhmdfahmy] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [mhmdfahmy] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET RECOVERY FULL 
+GO
+ALTER DATABASE [mhmdfahmy] SET  MULTI_USER 
+GO
+ALTER DATABASE [mhmdfahmy] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [mhmdfahmy] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [mhmdfahmy] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [mhmdfahmy] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+ALTER DATABASE [mhmdfahmy] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'mhmdfahmy', N'ON'
+GO
+USE [mhmdfahmy]
+GO
+/****** Object:  Table [dbo].[bill]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[bill](
+	[bill_no] [int] IDENTITY(1,1) NOT NULL,
+	[pid] [int] NULL,
+	[paient_type] [varchar](50) NULL,
+	[doctor_charge] [int] NOT NULL,
+	[medicine_charge] [int] NOT NULL,
+	[oprtn_charge] [int] NOT NULL,
+	[no_of_days] [int] NULL,
+	[nursing_charge] [int] NULL,
+	[advance] [int] NULL,
+	[health_card] [varchar](50) NULL,
+	[lab_charge] [int] NULL,
+	[bill] [int] NOT NULL,
+ CONSTRAINT [PK_bill] PRIMARY KEY CLUSTERED 
+(
+	[bill_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[doctor]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[doctor](
+	[doctorid] [int] IDENTITY(1,1) NOT NULL,
+	[doctorname] [nvarchar](50) NULL,
+	[dept] [nvarchar](50) NULL,
+ CONSTRAINT [PK_doctor] PRIMARY KEY CLUSTERED 
+(
+	[doctorid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Inpatient]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Inpatient](
+	[pid] [int] IDENTITY(1,1) NOT NULL,
+	[room_no] [nvarchar](50) NULL,
+	[date_of_adm] [datetime] NULL,
+	[date_of_dis] [datetime] NULL,
+	[advane] [nvarchar](50) NULL,
+	[labno] [int] NULL,
+ CONSTRAINT [PK_Inpatient] PRIMARY KEY CLUSTERED 
+(
+	[pid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[lab]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[lab](
+	[labno] [int] IDENTITY(1,1) NOT NULL,
+	[pid] [int] NULL,
+	[weight] [int] NULL,
+	[doctorid] [int] NULL,
+	[date] [nvarchar](50) NULL,
+	[category] [nvarchar](50) NULL,
+	[patient_type] [nvarchar](50) NULL,
+	[amount] [int] NULL,
+ CONSTRAINT [PK_lab] PRIMARY KEY CLUSTERED 
+(
+	[labno] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[outpatient]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[outpatient](
+	[pid] [int] IDENTITY(1,1) NOT NULL,
+	[date] [datetime] NULL,
+	[labno] [nvarchar](50) NULL,
+ CONSTRAINT [PK_Outpatient] PRIMARY KEY CLUSTERED 
+(
+	[pid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[patient]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[patient](
+	[Pid] [varchar](50) NOT NULL,
+	[name] [varchar](50) NULL,
+	[age] [int] NULL,
+	[weight] [int] NULL,
+	[gender] [varchar](50) NULL,
+	[address] [varchar](50) NULL,
+	[phoneno] [int] NULL,
+	[disease] [varchar](50) NULL,
+	[doctorid] [int] NULL,
+ CONSTRAINT [PK_patient] PRIMARY KEY CLUSTERED 
+(
+	[Pid] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[room]    Script Date: 16/06/2020 02:26:42 م ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[room](
+	[room_no] [varchar](50) NOT NULL,
+	[room_type] [varchar](50) NULL,
+	[status] [varchar](50) NULL,
+ CONSTRAINT [PK_room] PRIMARY KEY CLUSTERED 
+(
+	[room_no] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [mhmdfahmy] SET  READ_WRITE 
+GO
